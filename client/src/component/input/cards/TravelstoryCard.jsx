@@ -39,7 +39,7 @@ const TravelstoryCard = ({
       <img
         src={imageUrl}
         alt={title}
-        className="w-full h-56 object-cover rounded-lg"
+        className="w-full h-40 sm:h-56 object-cover rounded-lg"
         onClick={onClick}
       />
 

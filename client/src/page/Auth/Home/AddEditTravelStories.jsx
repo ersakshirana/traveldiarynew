@@ -294,7 +294,7 @@ function AddEditTravelStories({
       </div>
 
       {/* Form Content */}
-      <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+      <div className="p-4 md:p-6 space-y-5 md:space-y-6 max-h-[70vh] overflow-y-auto">
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
@@ -431,7 +431,7 @@ function AddEditTravelStories({
                     Clear all
                   </button>
                 </div>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {imageUrls.map((url, index) => (
                     <div 
                       key={index} 
@@ -582,7 +582,7 @@ function AddEditTravelStories({
       </div>
 
       {/* Footer Actions */}
-      <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+      <div className="px-4 md:px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
         <button
           onClick={onClose}
           className="px-6 py-2 text-slate-500 hover:text-slate-700 font-medium transition-colors"

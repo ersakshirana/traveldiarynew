@@ -31,7 +31,7 @@ const ViewTravelStory = ({
     <div className="relative">
       <div className="flex items-center justify-end">
         <div>
-          <div className="flex items-center gap-3 bg-cyan-50/50 p-2 rounded-l-lg">
+          <div className="flex items-center gap-2 sm:gap-3 bg-cyan-50/50 p-2 rounded-l-lg flex-wrap">
             <button className="btn-small" onClick={OnEditClick}>
               <MdUpdate className="text-lg" />
               UPDATE STORY
@@ -49,7 +49,7 @@ const ViewTravelStory = ({
 
       <div>
         <div className="flex-1 flex-flex-col gap-2 py-4">
-          <h1 className="text-3xl text-slate-950 font-bold mb-2">
+          <h1 className="text-2xl md:text-3xl text-slate-950 font-bold mb-2">
             {storyInfo && storyInfo.title}
           </h1>
           

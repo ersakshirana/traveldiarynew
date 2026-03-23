@@ -129,11 +129,11 @@ const Home = () => {
         handleClearSearch={handleClearSearch}
       />
 
-      <div className="cotainer mx-auto py-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-10">
         <div className="flex gap-7">
           <div className="flex-1">
             {allstories.length > 0 ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {allstories.map((item) => {
                   const creatorName = item.userId?.fullName || "Anonymous";
                   return (
@@ -164,7 +164,7 @@ const Home = () => {
                 />
               </>
             )}
-            <div className="w-[320px]"></div>
+            <div className="w-0 md:w-[320px]"></div>
           </div>
         </div>
       </div>
@@ -220,7 +220,7 @@ const Home = () => {
         />
       </Modal>
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-full bg-primary hover:bg-cyan-400 fixed right-10 bottom-10"
+        className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-primary hover:bg-cyan-400 fixed right-5 bottom-5 md:right-10 md:bottom-10 shadow-lg"
         onClick={() => {
           setOpenAddEditModel({ isShown: true, type: "Add", data: null });
         }}

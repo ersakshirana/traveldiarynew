@@ -49,7 +49,7 @@
   }
 
   .login-ui-box {
-    @apply w-80 h-[450px] rounded-full bg-primary absolute rotate-45;
+    @apply w-48 h-[300px] md:w-80 md:h-[450px] rounded-full bg-primary absolute rotate-45;
   }
 
   .icon-btn {
@@ -57,7 +57,7 @@
   }
 
   .model-box {
-    @apply w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50;
+    @apply w-[95vw] sm:w-[85vw] md:w-[40%] h-[85vh] md:h-[80vh] bg-white rounded-lg mx-auto mt-6 md:mt-14 p-3 sm:p-5 overflow-y-scroll scrollbar z-50;
   }
 
   .btn-small {
@@ -72,4 +72,13 @@
     @apply text-xl text-slate-500;
   }
   
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
 }
