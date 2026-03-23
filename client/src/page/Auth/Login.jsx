@@ -2,17 +2,20 @@ import { useState } from "react";
 import PasswordFeild from "../../component/input/PasswordFeild";
 import { useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
-import axiosinstance from "../../utils/axiosinstance";
+import { useAuth } from "../../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [error, seterror] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
 
     if (!validateEmail(email)) {
       seterror("Please enter a valid email address");
@@ -24,30 +27,29 @@ function Login() {
     }
 
     seterror("");
-    //Login api call
+    setIsSubmitting(true);
+
     try {
-      const response = await axiosinstance.post("/login", {
-        email: email,
-        password: password,
-      });
-      if (response.data && response.data.accesstoken) {
-        localStorage.setItem("token", response.data.accesstoken);
+      const result = await login(email, password);
+      if (result.success) {
+        toast.success("Login successful!", { position: "top-right" });
         navigate("/dashboard");
+      } else {
+        seterror(result.error);
+        toast.error(result.error, { position: "top-right" });
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        seterror(error.response.data.message);
-      } else {
-        seterror("unexpected error occured");
-      }
+      const errorMsg = "An unexpected error occurred";
+      seterror(errorMsg);
+      toast.error(errorMsg, { position: "top-right" });
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   return (
     <div className="h-screen bg-cyan-50 overflow-hidden relative">
+      <ToastContainer />
       <div className="login-ui-box right-10 -top-40" />
       <div className="login-ui-box bg-cyan-200 -bottom-200 -bottom-40 right-1/2" />
       <div className="container h-screen flex items-center justify-center px-20 mx-auto">
@@ -66,30 +68,39 @@ function Login() {
           <form onSubmit={handleLogin}>
             <h4 className="text-2xl font-semibold nb-7">Login</h4>
             <input
-              type="text "
+              type="email"
               placeholder="Email"
               className="input-box"
               value={email}
               onChange={({ target }) => {
                 setEmail(target.value);
               }}
+              disabled={isSubmitting}
+              required
             />
             <PasswordFeild
               value={password}
               onChange={({ target }) => {
                 setpassword(target.value);
               }}
+              disabled={isSubmitting}
+              required
             />
             {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
-            <button type="submit" className="btn-primary">
-              LOGIN
+            <button 
+              type="submit" 
+              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "LOGGING IN..." : "LOGIN"}
             </button>
             <p className="text-x5 text-state-500 text-center my-4">OR</p>
 
             <button
-              type="submit"
+              type="button"
               className="btn-primary btn-light"
               onClick={() => navigate("/signup")}
+              disabled={isSubmitting}
             >
               CREATE ACCOUNT
             </button>

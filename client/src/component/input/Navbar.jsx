@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import LOGO from "../../assets/logo.png";
 import ProfileInfo from "./cards/ProfileInfo";
 import SearchBar from "./SearchBar";
+import { useAuth } from "../../context/AuthContext";
 
 const Navbar = ({
   userInfo,
@@ -10,10 +11,11 @@ const Navbar = ({
   onSearchNote,
   handleClearSearch,
 }) => {
-  const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
+
   const onLogOut = () => {
-    localStorage.clear();
+    logout();
     navigate("/login");
   };
 
@@ -27,11 +29,12 @@ const Navbar = ({
     handleClearSearch();
     setSearchQuery("");
   };
+
   return (
     <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow top-0 z-10">
       <img src={LOGO} alt="travel-story" className="h-10 w-16" />
 
-      {isToken && (
+      {isAuthenticated && (
         <>
           <SearchBar
             value={searchQuery}

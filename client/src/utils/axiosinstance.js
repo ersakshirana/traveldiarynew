@@ -8,7 +8,8 @@ const axiosinstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log(`${BASE_URL}/login`);
+
+// Request interceptor - add token to headers
 axiosinstance.interceptors.request.use(
   (config) => {
     const accesstoken = localStorage.getItem("token");
@@ -18,6 +19,19 @@ axiosinstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor - handle 401 errors
+axiosinstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid - clear storage and redirect to login
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );
