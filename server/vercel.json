@@ -1,7 +1,11 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.js" }
-  ],
+  "buildCommand": "npm install",
+  "functions": {
+    "index.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
